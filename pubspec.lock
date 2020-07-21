@@ -46,9 +46,11 @@ packages:
   extended_text_library:
     dependency: "direct main"
     description:
-      name: extended_text_library
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "8cd6e019bf4874c3c25719348e28c3e49ae5d1e7"
+      url: "git://github.com/millionakking/extended_text_library.git"
+    source: git
     version: "3.0.0"
   fake_async:
     dependency: transitive
