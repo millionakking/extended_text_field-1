@@ -1135,7 +1135,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
     if (localValue == _receivedRemoteTextEditingValue) {
       return;
     }
-    _receivedRemoteTextEditingValue=_value;
+    _receivedRemoteTextEditingValue = _value;
     _textInputConnection.setEditingState(localValue);
   }
 
@@ -1737,7 +1737,8 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
             copyEnabled &&
             _hasFocus &&
             controls?.canCopy(this) == true
-        ? () => controls.handleCopy(this)
+        ? () => controls.handleCopy(
+            this, ClipboardStatusNotifier(value: ClipboardStatus.pasteable))
         : null;
   }
 
@@ -1847,7 +1848,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
   InlineSpan _buildTextSpan() {
     if (widget.obscureText) {
       String text = _value.text;
-      text = RenderEditable.obscuringCharacter * text.length;
+      text = '•' * text.length;
       final int o =
           _obscureShowCharTicksPending > 0 ? _obscureLatestCharIndex : null;
       if (o != null && o >= 0 && o < text.length)
@@ -1909,6 +1910,13 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
 
     return TextSpan(style: widget.style, text: text);
   }
+
+  @override
+  // TODO: implement currentAutofillScope
+  AutofillScope get currentAutofillScope => null;
+
+  @override
+  void showAutocorrectionPromptRect(int start, int end) {}
 }
 
 class _Editable extends MultiChildRenderObjectWidget {
