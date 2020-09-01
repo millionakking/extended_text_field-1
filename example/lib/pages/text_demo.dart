@@ -48,12 +48,14 @@ class _TextDemoState extends State<TextDemo> {
     'error 0 [45] warning 0',
   ];
 
+
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).autofocus(_focusNode);
     final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     if (keyboardHeight > 0) {
-      activeEmojiGird = activeAtGrid = activeDollarGrid = false;
+      activeEmojiGird =
+          activeAtGrid = activeDollarGrid = false;
     }
 
     _keyboardHeight = max(_keyboardHeight, keyboardHeight);
@@ -134,7 +136,8 @@ class _TextDemoState extends State<TextDemo> {
                       _textEditingController.value =
                           _textEditingController.value.copyWith(
                               text: '',
-                              selection: TextSelection.collapsed(int: 0),
+                              selection:
+                                  const TextSelection.collapsed(offset: 0),
                               composing: TextRange.empty);
                     });
                   },
@@ -159,7 +162,8 @@ class _TextDemoState extends State<TextDemo> {
                         final Function change = () {
                           setState(() {
                             if (active) {
-                              activeAtGrid = activeDollarGrid = false;
+                              activeAtGrid =
+                                  activeDollarGrid  = false;
                               FocusScope.of(context).requestFocus(_focusNode);
                             }
                             activeEmojiGird = active;
@@ -193,7 +197,8 @@ class _TextDemoState extends State<TextDemo> {
                           final Function change = () {
                             setState(() {
                               if (active) {
-                                activeEmojiGird = activeDollarGrid = false;
+                                activeEmojiGird =
+                                    activeDollarGrid  = false;
                                 FocusScope.of(context).requestFocus(_focusNode);
                               }
                               activeAtGrid = active;
@@ -212,7 +217,8 @@ class _TextDemoState extends State<TextDemo> {
                           final Function change = () {
                             setState(() {
                               if (active) {
-                                activeEmojiGird = activeAtGrid = false;
+                                activeEmojiGird =
+                                    activeAtGrid  = false;
                                 FocusScope.of(context).requestFocus(_focusNode);
                               }
                               activeDollarGrid = active;
@@ -386,7 +392,7 @@ class _TextDemoState extends State<TextDemo> {
 
     value = TextEditingValue(
       text: actualText.replaceRange(start, end, ''),
-      selection: TextSelection.collapsed(int: start),
+      selection: TextSelection.collapsed(offset: start),
     );
 
     final TextSpan oldTextSpan = _mySpecialTextSpanBuilder.build(_value.text);

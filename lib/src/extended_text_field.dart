@@ -589,10 +589,10 @@ class ExtendedTextField extends StatefulWidget {
     properties.add(
         DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
     properties.add(IntProperty('maxLength', maxLength, defaultValue: null));
-    properties.add(FlagProperty(
-      'maxLengthEnforced',
-      bool: maxLengthEnforced,
-    ));
+    properties.add(FlagProperty('maxLengthEnforced',
+        value: maxLengthEnforced,
+        defaultValue: true,
+        ifFalse: 'maxLength not enforced'));
     properties.add(EnumProperty<TextInputAction>(
         'textInputAction', textInputAction,
         defaultValue: null));
@@ -618,12 +618,10 @@ class ExtendedTextField extends StatefulWidget {
     properties.add(DiagnosticsProperty<EdgeInsetsGeometry>(
         'scrollPadding', scrollPadding,
         defaultValue: const EdgeInsets.all(20.0)));
-    properties.add(FlagProperty(
-      'selectionEnabled', bool: selectionEnabled,
-      // value: selectionEnabled,
-      // defaultValue: true,
-      // ifFalse: 'selection disabled'
-    ));
+    properties.add(FlagProperty('selectionEnabled',
+        value: selectionEnabled,
+        defaultValue: true,
+        ifFalse: 'selection disabled'));
     properties.add(DiagnosticsProperty<ScrollController>(
         'scrollController', scrollController,
         defaultValue: null));
@@ -1005,7 +1003,7 @@ class _ExtendedTextFieldState extends State<ExtendedTextField>
               onTap: () {
                 if (!_effectiveController.selection.isValid)
                   _effectiveController.selection = TextSelection.collapsed(
-                      int: _effectiveController.text.length);
+                      offset: _effectiveController.text.length);
                 _requestKeyboard();
               },
               child: child,
