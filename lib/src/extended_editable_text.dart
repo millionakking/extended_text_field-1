@@ -1747,7 +1747,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
             cutEnabled &&
             _hasFocus &&
             controls?.canCut(this) == true
-        ? () => controls.handleCut(this, ClipboardStatusNotifier())
+        ? () => controls.handleCut(this)
         : null;
   }
 
@@ -1756,7 +1756,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
             pasteEnabled &&
             _hasFocus &&
             controls?.canPaste(this) == true
-        ? () => controls.handlePaste(this, ClipboardStatusNotifier())
+        ? () => controls.handlePaste(this)
         : null;
   }
 

@@ -68,18 +68,16 @@ class MyExtendedMaterialTextSelectionControls
           ),
           child: _TextSelectionToolbar(
             handleCut: canCut(delegate)
-                ? () => handleCut(delegate, ClipboardStatusNotifier())
-                : null,
+                ? () => handleCut
+                : canCut(delegate) ? () => handleCut(delegate) : null,
             handleCopy: canCopy(delegate)
                 ? () => handleCopy(delegate,
                     ClipboardStatusNotifier(value: ClipboardStatus.pasteable))
                 : null,
-            handlePaste: canPaste(delegate)
-                ? () => handlePaste(delegate, ClipboardStatusNotifier())
-                : null,
-            handleSelectAll: canSelectAll(delegate)
-                ? () => handleSelectAll(delegate, ClipboardStatusNotifier())
-                : null,
+            handlePaste:
+                canPaste(delegate) ? () => handlePaste(delegate) : null,
+            handleSelectAll:
+                canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
             handleLike: () {
               //mailto:<email address>?subject=<subject>&body=<body>, e.g.
               launch(
