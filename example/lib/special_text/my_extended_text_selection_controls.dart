@@ -84,7 +84,7 @@ class MyExtendedMaterialTextSelectionControls
               //clear selecction
               delegate.textEditingValue = delegate.textEditingValue.copyWith(
                   selection: TextSelection.collapsed(
-                      offset: delegate.textEditingValue.selection.end));
+                      int: delegate.textEditingValue.selection.end));
             },
           ),
         ),

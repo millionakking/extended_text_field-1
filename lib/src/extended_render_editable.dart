@@ -696,7 +696,7 @@ class ExtendedRenderEditable extends ExtendedTextSelectionRenderObject {
         textSelectionDelegate.textEditingValue = TextEditingValue(
           text:
               selection.textBefore(plainText) + selection.textAfter(plainText),
-          selection: TextSelection.collapsed(offset: selection.start),
+          selection: TextSelection.collapsed(int: selection.start),
         );
       }
       return;
@@ -712,7 +712,7 @@ class ExtendedRenderEditable extends ExtendedTextSelectionRenderObject {
               data.text +
               value.selection.textAfter(value.text),
           selection: TextSelection.collapsed(
-              offset: value.selection.start + data.text.length),
+              int: value.selection.start + data.text.length),
         );
       }
       return;
@@ -734,12 +734,12 @@ class ExtendedRenderEditable extends ExtendedTextSelectionRenderObject {
       textSelectionDelegate.textEditingValue = TextEditingValue(
         text: selection.textBefore(plainText) +
             selection.textAfter(plainText).substring(1),
-        selection: TextSelection.collapsed(offset: selection.start),
+        selection: TextSelection.collapsed(int: selection.start),
       );
     } else {
       textSelectionDelegate.textEditingValue = TextEditingValue(
         text: selection.textBefore(plainText),
-        selection: TextSelection.collapsed(offset: selection.start),
+        selection: TextSelection.collapsed(int: selection.start),
       );
     }
   }

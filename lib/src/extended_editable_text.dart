@@ -798,8 +798,8 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
   @override
   bool get wantKeepAlive => widget.focusNode.hasFocus;
 
-  Color get _cursorColor =>
-      widget.cursorColor.withOpacity(_cursorBlinkOpacityController.value);
+  Color get _cursorColor => widget.cursorColor.withOpacity(
+      double.parse(_cursorBlinkOpacityController.value.toString()));
 
   @override
   bool get cutEnabled => widget.toolbarOptions.cut && !widget.readOnly;
@@ -825,9 +825,9 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       _selectionOverlay?.updateForScroll();
     });
     _cursorBlinkOpacityController =
-        AnimationController(vsync: this, duration: _fadeDuration);
+        AnimationController(TickerProvider: this, duration: _fadeDuration);
     _cursorBlinkOpacityController.addListener(_onCursorColorTick);
-    _floatingCursorResetController = AnimationController(vsync: this);
+    _floatingCursorResetController = AnimationController(TickerProvider: this);
     _floatingCursorResetController.addListener(_onFloatingCursorResetTick);
     _cursorVisibilityNotifier.value = widget.showCursor;
   }
@@ -877,12 +877,13 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       // _openInputConnection.
       if (_textInputConnection != null && _textInputConnection.attached) {
         _textInputConnection.setStyle(
-          fontFamily: style.fontFamily,
-          fontSize: style.fontSize,
-          fontWeight: style.fontWeight,
-          textDirection: _textDirection,
-          textAlign: widget.textAlign,
-        );
+
+            //   fontFamily: style.fontFamily,
+            //   fontSize: style.fontSize,
+            //   fontWeight: style.fontWeight,
+            //   textDirection: _textDirection,
+            //   textAlign: widget.textAlign,
+            );
       }
     }
   }
@@ -1089,14 +1090,15 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       if (_lastTextPosition.offset != renderEditable.selection.baseOffset)
         // The cause is technically the force cursor, but the cause is listed as tap as the desired functionality is the same.
         _handleSelectionChanged(
-            TextSelection.collapsed(offset: _lastTextPosition.offset),
+            TextSelection.collapsed(int: _value.text.length),
             SelectionChangedCause.forcePress);
       _startCaretRect = null;
       _lastTextPosition = null;
       _pointOffsetOrigin = null;
       _lastBoundedOffset = null;
     } else {
-      final double lerpValue = _floatingCursorResetController.value;
+      final double lerpValue =
+          double.parse(_floatingCursorResetController.value.toString());
       final double lerpX =
           ui.lerpDouble(_lastBoundedOffset.dx, finalPosition.dx, lerpValue);
       final double lerpY =
@@ -1232,12 +1234,13 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       final TextStyle style = widget.style;
       _textInputConnection
         ..setStyle(
-          fontFamily: style.fontFamily,
-          fontSize: style.fontSize,
-          fontWeight: style.fontWeight,
-          textDirection: _textDirection,
-          textAlign: widget.textAlign,
-        )
+            // fontFamily: style.fontFamily,
+            // fontSize: style.fontSize,
+            // fontWeight: style.fontWeight,
+            // textDirection: _textDirection,
+            // textAlign: widget.textAlign,
+
+            )
         ..setEditingState(localValue);
     } else {
       _textInputConnection.show();
@@ -1515,16 +1518,17 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
   }
 
   void _onCursorColorTick() {
-    renderEditable.cursorColor =
-        widget.cursorColor.withOpacity(_cursorBlinkOpacityController.value);
-    _cursorVisibilityNotifier.value =
-        widget.showCursor && _cursorBlinkOpacityController.value > 0;
+    renderEditable.cursorColor = widget.cursorColor.withOpacity(
+        double.parse(_cursorBlinkOpacityController.value.toString()));
+    _cursorVisibilityNotifier.value = widget.showCursor &&
+        (double.parse(_cursorBlinkOpacityController.value.toString()) > 0);
   }
 
   /// Whether the blinking cursor is actually visible at this precise moment
   /// (it's hidden half the time, since it blinks).
   @visibleForTesting
-  bool get cursorCurrentlyVisible => _cursorBlinkOpacityController.value > 0;
+  bool get cursorCurrentlyVisible =>
+      double.parse(_cursorBlinkOpacityController.value.toString()) > 0;
 
   /// The cursor blink interval (the amount of time the cursor is in the "on"
   /// state or the "off" state). A complete cursor blink period is twice this
@@ -1637,7 +1641,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       if (!_value.selection.isValid) {
         // Place cursor at the end if the selection is invalid when we receive focus.
         widget.controller.selection =
-            TextSelection.collapsed(offset: _value.text.length);
+            TextSelection.collapsed(int: _value.text.length);
       }
     } else {
       WidgetsBinding.instance.removeObserver(this);
@@ -1917,6 +1921,11 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
 
   @override
   void showAutocorrectionPromptRect(int start, int end) {}
+
+  @override
+  void performPrivateCommand(String action, Map<dynamic, dynamic> data) {
+    // TODO: implement performPrivateCommand
+  }
 }
 
 class _Editable extends MultiChildRenderObjectWidget {
