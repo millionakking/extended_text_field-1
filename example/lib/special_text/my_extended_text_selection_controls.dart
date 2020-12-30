@@ -69,7 +69,9 @@ class MyExtendedMaterialTextSelectionControls
           child: _TextSelectionToolbar(
             handleCut: canCut(delegate)
                 ? () => handleCut
-                : canCut(delegate) ? () => handleCut(delegate) : null,
+                : canCut(delegate)
+                    ? () => handleCut(delegate)
+                    : null,
             handleCopy: canCopy(delegate)
                 ? () => handleCopy(delegate,
                     ClipboardStatusNotifier(value: ClipboardStatus.pasteable))
@@ -86,7 +88,7 @@ class MyExtendedMaterialTextSelectionControls
               //clear selecction
               delegate.textEditingValue = delegate.textEditingValue.copyWith(
                   selection: TextSelection.collapsed(
-                      offset: delegate.textEditingValue.selection.end));
+                      int: delegate.textEditingValue.selection.end));
             },
           ),
         ),
