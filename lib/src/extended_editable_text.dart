@@ -825,9 +825,9 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       _selectionOverlay?.updateForScroll();
     });
     _cursorBlinkOpacityController =
-        AnimationController(TickerProvider: this, duration: _fadeDuration);
+        AnimationController(vsync: this, duration: _fadeDuration);
     _cursorBlinkOpacityController.addListener(_onCursorColorTick);
-    _floatingCursorResetController = AnimationController(TickerProvider: this);
+    _floatingCursorResetController = AnimationController(vsync: this);
     _floatingCursorResetController.addListener(_onFloatingCursorResetTick);
     _cursorVisibilityNotifier.value = widget.showCursor;
   }
@@ -1089,7 +1089,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       if (_lastTextPosition.offset != renderEditable.selection.baseOffset)
         // The cause is technically the force cursor, but the cause is listed as tap as the desired functionality is the same.
         _handleSelectionChanged(
-            TextSelection.collapsed(int: _lastTextPosition.offset),
+            TextSelection.collapsed(offset: _lastTextPosition.offset),
             SelectionChangedCause.forcePress);
       _startCaretRect = null;
       _lastTextPosition = null;
@@ -1637,7 +1637,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
       if (!_value.selection.isValid) {
         // Place cursor at the end if the selection is invalid when we receive focus.
         widget.controller.selection =
-            TextSelection.collapsed(int: _value.text.length);
+            TextSelection.collapsed(offset: _value.text.length);
       }
     } else {
       WidgetsBinding.instance.removeObserver(this);

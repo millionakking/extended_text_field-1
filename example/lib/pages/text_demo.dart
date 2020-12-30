@@ -134,7 +134,7 @@ class _TextDemoState extends State<TextDemo> {
                       _textEditingController.value =
                           _textEditingController.value.copyWith(
                               text: '',
-                              selection: TextSelection.collapsed(int: 0),
+                              selection: TextSelection.collapsed(offset: 0),
                               composing: TextRange.empty);
                     });
                   },
@@ -386,7 +386,7 @@ class _TextDemoState extends State<TextDemo> {
 
     value = TextEditingValue(
       text: actualText.replaceRange(start, end, ''),
-      selection: TextSelection.collapsed(int: start),
+      selection: TextSelection.collapsed(offset: start),
     );
 
     final TextSpan oldTextSpan =
