@@ -1919,9 +1919,7 @@ class ExtendedEditableTextState extends State<ExtendedEditableText>
   void showAutocorrectionPromptRect(int start, int end) {}
 
   @override
-  void performPrivateCommand(String action, Map<String, dynamic> data) {
-    // TODO: implement performPrivateCommand
-  }
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
 }
 
 class _Editable extends MultiChildRenderObjectWidget {

@@ -1006,7 +1006,7 @@ class _ExtendedTextFieldState extends State<ExtendedTextField>
               onTap: () {
                 if (!_effectiveController.selection.isValid)
                   _effectiveController.selection = TextSelection.collapsed(
-                      int: _effectiveController.text.length);
+                      offset: _effectiveController.text.length);
                 _requestKeyboard();
               },
               child: child,
